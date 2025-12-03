@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
         alert("OMG YOU CAUGHT ME!");
     });
 
+    // this changes the square to a random color on hover
+    squareElement.addEventListener("mouseover", ()=>{
+        squareElement.style.backgroundColor = getRandomColor();
+    });
+
     let box = document.querySelector("#box");
 
     for(let i = 0;i<SQUARE_COUNT;i++)
@@ -19,7 +24,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
         square.alt = 'Catch the Laughing Man!';
         square.className = 'square';
         box.appendChild(square);
-        //add it to the screen   
+
+        // this changes the imagine on hover and goes back when mouse is out
+        square.addEventListener("mouseover", ()=>{
+            square.src= "orochimaru_50x50.jpg";
+        });
+
+        square.addEventListener("mouseout", ()=>{
+            square.src= "laughing_man.jpg";
+        });
+        box.appendChild(square);
     }
     let allSquares = box.children;
     let squareArray = Array.from(allSquares);
@@ -27,8 +41,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
         var dx = SPEED * Math.random() * 2 - 1;
         var dy = SPEED * Math.random() * 2 - 1;
         setInterval(() => {
-            let currentLeft = parseInt(element.style.left) || 225;
-            let currentTop = parseInt(element.style.top) || 175;
+            let currentLeft = parseFloat(element.style.left) || 225;
+            let currentTop = parseFloat(element.style.top) || 175;
             if (currentLeft >= 450 || currentLeft <= 0) {
                 dx *= -1;
                 element.style.borderColor = getRandomColor();
@@ -49,6 +63,6 @@ function getRandomColor() {
     var r = parseInt(Math.random() * 256);
     var g = parseInt(Math.random() * 256);
     var b = parseInt(Math.random() * 256);
-    let color = "rgb(" + r + "," + g + "," + b + ")";
+    let color = `rgb(${r},${g},${b})`;
     return color;
 }
